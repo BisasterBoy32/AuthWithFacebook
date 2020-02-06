@@ -1,5 +1,7 @@
 from django.urls import path
 from . import api
+from .facebook_api import (SocialLoginView)
+urlpatterns = []
 
 urlpatterns = [
     path("",api.RegisterView.as_view()),
@@ -8,4 +10,5 @@ urlpatterns = [
     path("logout/",api.Logout.as_view()),
     path("validate/",api.ValidateView.as_view()),
     path("update/",api.UpdateUserView.as_view()),
+    path('oauth/login/', SocialLoginView.as_view()),
 ]

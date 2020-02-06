@@ -1,12 +1,14 @@
 from django.conf import settings
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+from django.conf.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("",include("frontend.urls")),
     path("accounts/",include("accounts.urls")),
-    path("main/",include("mainFrontend.urls"))
+    path("main/",include("mainFrontend.urls")),
+    path('api/auth/oauth/', include('rest_framework_social_oauth2.urls'))
 ]
 
 if settings.DEBUG:

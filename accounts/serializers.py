@@ -102,3 +102,11 @@ class ValidateUsernameEmailSer(serializers.Serializer):
             if User.objects.filter(email=email).exists() :
                 raise serializers.ValidationError("user with this email already exists")
             return data
+
+
+class SocialSerializer(serializers.Serializer):
+    """
+    Serializer which accepts an OAuth2 access token and provider.
+    """
+    provider = serializers.CharField(max_length=255, required=True)
+    access_token = serializers.CharField(max_length=4096, required=True, trim_whitespace=True)

@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { Formik } from 'formik';
 import styled from "styled-components";
+import FacebookLogin from 'react-facebook-login';
+
 
 const Wrapper = styled.div`
     display : flex;
@@ -59,12 +61,26 @@ export default () => {
     const user = useContext(UserContext);
     const [loginError ,setLoginError] = useState(false);
 
+    const responseFacebook = (response) => {
+        console.log("response : " ,response);
+    }
+    
+    const componentClicked = () => {
+        console.log("clicked")
+    }
     return (
         <Wrapper>
             <Title>
                 Chat APP
         </Title>
             <Container>
+                <FacebookLogin
+                    appId="612218419594833"
+                    autoLoad={false}
+                    fields="name,email,picture"
+                    onClick={componentClicked}
+                    callback={responseFacebook} 
+                />
                 <Formik
                     initialValues={{ username_or_email: '', password: '' }}
                     validate={values => {
