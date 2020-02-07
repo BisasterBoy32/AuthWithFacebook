@@ -1,20 +1,20 @@
 # django_project_boilerplate
 
-A boilerplate Django project for quickly getting started
+A boilerplate Django and React project with user model
+the user can create account or login with facebook or gmail
 
 Steps:
 
 1. Pull this repository
 2. Create a virtualenv and install dependencies with `pip install -r requirements.txt`
-3. Configure your .env variables
 4. Rename your project with `python manage.py rename yourprojectname`
 5. install all dependencies for your frontend app with `npm install`
 
-This project includes:
-
-1. The Django Debug Toolbar already setup
-2. Multiple settings modules setup for easily deploying
-3. Python-decouple for securely referencing keys, passwords and other settings.
-4. A custom Django command for renaming your project
-5. all dependencies you need to work with react
-6. webpack and babel configuration is set up for you already
+in this project I used React Facebook Login and Reacte Google Login
+those libraries are using oauth2 to get an access token from the provider (Google , Facebook)
+and then pass it to the backend to allow it to access his account
+in the backend i used django-rest-framework-social-oauth2 to communicate with the 
+the provider and get the user information and after that create a user instance
+or update it if there is a one based on the information that i get from the provider finally 
+i generate a token with django-knox and pass it to the frontend to authenticate this user
+ 
