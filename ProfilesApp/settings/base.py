@@ -13,6 +13,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'frontend',
     'mainFrontend',
     'rest_framework',
@@ -26,6 +27,7 @@ INSTALLED_APPS = [
 
     'core'
 ]
+SITE_ID = 1
 
 REST_FRAMEWORK = {
     # 'DEFAULT_PERMISSION_CLASSES': [  # remove
@@ -53,21 +55,24 @@ MIDDLEWARE = [
 CORS_ORIGIN_ALLOW_ALL = True
 
 # Facebook configuration
-SOCIAL_AUTH_FACEBOOK_KEY = "612218419594833"#os.environ.get('FACEBOOK_KEY')
-SOCIAL_AUTH_FACEBOOK_SECRET = "d13a882786ca25806dd0c5084c187a07"#os.environ.get('FACEBOOK_SECRET')
+SOCIAL_AUTH_FACEBOOK_KEY = os.environ.get('FACEBOOK_KEY')
+SOCIAL_AUTH_FACEBOOK_SECRET = os.environ.get('FACEBOOK_SECRET')
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
 
 SOCIAL_AUTH_FACEBOOK_IGNORE_DEFAULT_SCOPE = True
 SOCIAL_AUTH_FACEBOOK_SCOPE = [
     'email',
-    'picture',
-    'user_birthday'
 ]
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-    'fields': 'id, name, email, picture'
+    'fields': 'id, name, email'
 }
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
-FACEBOOK_EXTENDED_PERMISSIONS = ['email']
+SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
+SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = False
+
+# google configuration
+SOCIAL_AUTH_GOOGLE_KEY = os.environ.get('GOOGLE_ID')
+SOCIAL_AUTH_GOOGLE_SECRET = os.environ.get('GOOGLE_SECRET')
+
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
 SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = False
 
@@ -75,6 +80,9 @@ AUTHENTICATION_BACKENDS = [
     'social_core.backends.linkedin.LinkedinOAuth2',
     'social_core.backends.instagram.InstagramOAuth2',
     'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.google.GoogleOpenId',
+    'social_core.backends.google.GoogleOAuth2',
+    'social_core.backends.google.GoogleOAuth',
     'django.contrib.auth.backends.ModelBackend',
 ]
 

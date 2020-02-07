@@ -64,13 +64,12 @@ class SocialLoginView(generics.GenericAPIView):
  
         if authenticated_user and authenticated_user.is_active:
             #generate KNOX token
-            data={
-                "token": AuthToken.objects.create(authenticated_user)[1]
-            }
+            token = AuthToken.objects.create(authenticated_user)[1]
             #customize the response to your needs
-            response = {
-                "email": authenticated_user.email,
-                "username": authenticated_user.username,
-                "token": data.get('token')
-            }
+            #get the user informations
+            user_ser = serializers.RegisterSerializer(authenticated_user)
+            response = ({
+            "user" : user_ser.data,
+            "token" : token
+        })
             return Response(status=status.HTTP_200_OK, data=response)
