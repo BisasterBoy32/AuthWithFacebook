@@ -62,22 +62,16 @@ export default () => {
     const user = useContext(UserContext);
     const [loginError ,setLoginError] = useState(false);
 
-    // whene user log in with google
-    const responseGoogle = (response) => {
-        console.log(response);
-    }
-    // whene user login with facebook
-    const responseFacebook = (response) => {
+    const sendAccessToken = (backend ,response) => {
         // send the access token to the server
         // the server will connect to the facebook with this access token and 
         // get this user data create a user or update
         // the current one and generate a season token
         // and send it to this user so he can be authenticated 
         const values = {
-            provider : "facebook",
             access_token: response.accessToken
         }
-        axios.post("accounts/oauth/login/", values)
+        axios.post(`accounts/oauth/login/${backend}/`, values)
             .then(
                 res => {
                     user.dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
@@ -86,6 +80,14 @@ export default () => {
                     user.dispatch({ type: "LOGIN_FAILED", payload: err.response.message });
                 }
             )
+    }
+    // whene user log in with google
+    const responseGoogle = (response) => {
+        sendAccessToken("google-oauth2",response)
+    }
+    // whene user login with facebook
+    const responseFacebook = (response) => {
+        sendAccessToken("facebook",response)
     }
     
     return (
@@ -101,12 +103,15 @@ export default () => {
                     onFailure={responseGoogle}
                     cookiePolicy={'single_host_origin'}
                     autoLoad={false}
+                    className="google-css"
                 />
                 <FacebookLogin
                     appId="612218419594833"
                     autoLoad={false}
                     fields="name,email,picture"
                     callback={responseFacebook} 
+                    icon="fa-facebook"
+                    cssClass="facebook-css"
                 />
                 <Formik
                     initialValues={{ username_or_email: '', password: '' }}

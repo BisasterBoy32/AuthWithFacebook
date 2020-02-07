@@ -19,11 +19,15 @@ def create_profile(backend, user, response, *args, **kwargs):
             except HTTPError:
                 # if the request failed hand the user a random picture
                 picture_url = "https://127.0.0.1:8000/static/icons/icon-1.jpg"
-            profile = Profile.objects.create(
-                user = user,
-                icon = picture_url,
-                # since i cant access the birthday of the facebook user
-                # i generate a random one
-                born_date = "2000-12-05T12:30"
-            )
-            profile.save()
+
+        elif backend.name == "google-oauth2":
+            picture_url = response.get('picture')
+
+        profile = Profile.objects.create(
+            user = user,
+            icon = picture_url,
+            # since i cant access the birthday of the facebook user
+            # i generate a random one
+            born_date = "2000-12-05T12:30"
+        )
+        profile.save()   
