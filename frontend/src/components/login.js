@@ -191,6 +191,8 @@ export default () => {
                 </Formik>
                 <br />
                 You don't have an account? Register from <Link to="/register">Here</Link>
+                <br />
+                Did you forget your password? reset your password from <Link to="/reset"> Here </Link>
             </Container>
         </Wrapper>
     )
