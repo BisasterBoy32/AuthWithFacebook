@@ -27,7 +27,7 @@ const Button = styled.button`
     border : 1px solid #4F98CA;
     margin-top : 1rem;
     padding : .5rem 2rem;
-    display : block;
+    display : inline-block;
     font-size : 1.2rem;
     color : #000;
 `

@@ -1,6 +1,7 @@
 import React, { useState ,useEffect} from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const Container = styled.div`
@@ -26,7 +27,7 @@ const Button = styled.button`
     border : 1px solid #4F98CA;
     margin-top : 1rem;
     padding : .5rem 2rem;
-    display : block;
+    display : inline-block;
     font-size : 1.2rem;
     color : #000;
 `
@@ -134,7 +135,7 @@ export default (props) => {
             </Container>
         )
     } else if (reset) {
-        return <Container><h1> Congratulation your password has been updated succefully </h1></Container>
+        return <Container><h1> Congratulation your password has been updated succefully <Link to=""> login in </Link> </h1></Container>
     } else {
         return <Container> <h1>Invalid Token :( </h1></Container>
     }
